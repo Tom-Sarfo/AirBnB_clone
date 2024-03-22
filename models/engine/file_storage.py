@@ -30,13 +30,20 @@ class FileStorage:
             json.dump(objdict, file)
 
     def reload(self):
-        """Deserialize the JSON file __file_path to __objects, if it exists."""
+        """Deserialize object from json file to dictionary object"""
         try:
-            with open(FileStorage.__file_path) as file:
-                objdict = json.load(file)
-                for _obj in objdict.values():
-                    cls_name = _obj["__class__"]
-                    del _obj["__class__"]
+            with open(self.__file_path) as file:
+                file_chunk = file.read()
+                if file_chunk:
+                    objdict = json.load(file_chunk)
+                    for _key,_obj in objdict.items():
+                        _class_name, _objId = _key.split('.')
+                        _obj["created_at"] = datetime.strptime(_obj["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                        _obj["updated_at"] = datetime.strptime(_obj["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                        class_def = globals()[_class_name]
+                        objct = class_def(**_obj)
+                        self._objects[key] = objct
+                    
                     self.new(eval(cls_name)(**_obj))
         except FileNotFoundError:
             return
