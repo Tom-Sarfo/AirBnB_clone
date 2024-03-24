@@ -7,6 +7,7 @@ import re
 import shlex
 from models.base_model import BaseModel
 from models import storage
+from models import user
 """
 from models.user import User
 from models.state import State
