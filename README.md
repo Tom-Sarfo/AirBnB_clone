@@ -1,5 +1,5 @@
 # 0x00. AirBnB clone - The console
-![Airbnb project image](hbnb.png)
+
 ## Project Description
 Welcome to the Airbnb Clone – a simplified command-line interface (CLI) designed for ease of use. This initiative is part of the ALX curriculum project, presenting an interactive shell to manage instances of various classes such as User, amenity, city, place, state, review, and the BaseModel, serving as the foundation for all other classes.
 ## Command Interpreter Description
