@@ -9,14 +9,14 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Initialize a new instance of the BaseModel class."""
 
+        timef = "%Y-%m-%dT%H:%M:%S.%f"
         self.id = str(uuid.uuid4())
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
         if len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
-                    self.__dict__[key] = datetime.
-                    strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                    self.__dict__[key] = datetime.strptime(value, timef)
                 else:
                     self.__dict__[key] = value
         else:
