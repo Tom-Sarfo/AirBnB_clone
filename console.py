@@ -15,6 +15,7 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
+
 def parse(arg):
     curly_braces = re.search(r"\{(.*?)\}", arg)
     brackets = re.search(r"\[(.*?)\]", arg)
@@ -31,6 +32,7 @@ def parse(arg):
         retl = [i.strip(",") for i in lexer]
         retl.append(curly_braces.group())
         return retl
+
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
@@ -50,7 +52,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """Handle endo of file condition with"""
-        print("") #print new line to ensure clean output
+        print("")
         return True
 
     def emptyline(self):
@@ -68,7 +70,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(eval(args[0])().id)
             storage.save()
-    
+
     def do_show(self, arg):
         """ Prints the string representation of an
         instance based on the class name and id"""
@@ -153,12 +155,14 @@ class HBNBCommand(cmd.Cmd):
             obj = objdict["{}.{}".format(args[0], args[1])]
             for key, value in eval(args[2]).items():
                 if (key in obj.__class__.__dict__.keys() and
-                        type(obj.__class__.__dict__[key]) in {str, int, float}):
+                        type(obj.__class__.__dict__[key])
+                        in {str, int, float}):
                     valtype = type(obj.__class__.__dict__[key])
                     obj.__dict__[key] = valtype(value)
                 else:
                     obj.__dict__[key] = value
         storage.save()
-        
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
