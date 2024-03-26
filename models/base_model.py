@@ -1,8 +1,8 @@
 #!/usr/bin/python3
+"""a base model class representing common attributes"""
 import uuid
 from datetime import datetime
 import models
-"""A base model class representing common attributes"""
 
 
 class BaseModel:

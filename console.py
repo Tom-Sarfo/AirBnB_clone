@@ -45,6 +45,26 @@ class HBNBCommand(cmd.Cmd):
         "Amenity",
         "Review"
     }
+    def default(self, arg):
+        """Default behavior for cmd module when input is invalid"""
+        argdict = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "count": self.do_count,
+            "update": self.do_update
+        }
+        match = re.search(r"\.", arg)
+        if match is not None:
+            argl = [arg[:match.span()[0]], arg[match.span()[1]:]]
+            match = re.search(r"\((.*?)\)", argl[1])
+            if match is not None:
+                command = [argl[1][:match.span()[0]], match.group()[1:-1]]
+                if command[0] in argdict.keys():
+                    call = "{} {}".format(argl[0], command[1])
+                    return argdict[command[0]](call)
+        print("*** Unknown syntax: {}".format(arg))
+        return False
 
     def do_quit(self, arg):
         """Exit the program"""
@@ -64,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
         it (to the JSON file) and prints the id"""
         args = parse(arg)
         if len(args) == 0:
-            print("**class name missing**")
+            print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
@@ -77,7 +97,7 @@ class HBNBCommand(cmd.Cmd):
         args = parse(arg)
         objdict = storage.all()
         if len(args) == 0:
-            print("**class name missing**")
+            print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
@@ -92,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
         args = parse(arg)
         objdict = storage.all()
         if len(args) == 0:
-            print("**class name missing**")
+            print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
@@ -110,13 +130,13 @@ class HBNBCommand(cmd.Cmd):
         if len(args) > 0 and args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            obj_all = []
+            objl = []
             for obj in storage.all().values():
                 if len(args) > 0 and args[0] == obj.__class__.__name__:
-                    obj_all.append(obj.__str__())
+                    objl.append(obj.__str__())
                 elif len(args) == 0:
-                    obj_all.append(obj.__str__())
-            print(obj_all)
+                    objl.append(obj.__str__())
+            print(objl)
 
     def do_update(self, arg):
         """Updates an instance based on the class name and
@@ -124,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
         args = parse(arg)
         objdict = storage.all()
         if len(args) == 0:
-            print("**class name missing**")
+            print("** class name missing **")
             return False
         elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
