@@ -45,6 +45,7 @@ class HBNBCommand(cmd.Cmd):
         "Amenity",
         "Review"
     }
+
     def default(self, arg):
         """Default behavior for cmd module when input is invalid"""
         argdict = {
@@ -56,12 +57,12 @@ class HBNBCommand(cmd.Cmd):
         }
         match = re.search(r"\.", arg)
         if match is not None:
-            argl = [arg[:match.span()[0]], arg[match.span()[1]:]]
-            match = re.search(r"\((.*?)\)", argl[1])
+            args = [arg[:match.span()[0]], arg[match.span()[1]:]]
+            match = re.search(r"\((.*?)\)", args[1])
             if match is not None:
-                command = [argl[1][:match.span()[0]], match.group()[1:-1]]
+                command = [args[1][:match.span()[0]], match.group()[1:-1]]
                 if command[0] in argdict.keys():
-                    call = "{} {}".format(argl[0], command[1])
+                    call = "{} {}".format(args[0], command[1])
                     return argdict[command[0]](call)
         print("*** Unknown syntax: {}".format(arg))
         return False
@@ -137,6 +138,15 @@ class HBNBCommand(cmd.Cmd):
                 elif len(args) == 0:
                     objl.append(obj.__str__())
             print(objl)
+
+    def do_count(self, arg):
+        """retrieve all instances of a class by using"""
+        args = parse(arg)
+        count = 0
+        for obj in storage.all().values():
+            if args[0] == obj.__class__.__name__:
+                count += 1
+        print(count)
 
     def do_update(self, arg):
         """Updates an instance based on the class name and
