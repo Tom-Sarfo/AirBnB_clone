@@ -6,7 +6,7 @@ Welcome to the Airbnb Clone – a simplified command-line interface (CLI) design
 The command interpreter plays a pivotal role in the Airbnb Console Clone project, offering users an interactive shell to engage with the application. It acts as a textual interface through which users can input commands to execute a range of operations, encompassing the creation, display, modification, and removal of instances across diverse classes.
 ### Key Features:
 
-- **User-friendly-interface:** The command interpreter provides a simple and user-friendly interface, facilitating smooth navigation and execution of commands for users.
+- **User-friendly-interface:** The command interpreter provides simple and user-friendly interface, facilitating smooth navigation and execution of commands for users.
 - **CRUD Operations:** Users can effortlessly carry out operations of Creation, Reading, Updating, and Deletion on instances of various classes present in the application (User, Amenity, City, State, Review, and BaseModel).
 - **Dynamic handling:** - The interpreter dynamically manages various classes, enabling users to interact with multiple models like BaseModel and User.
 - **Command Interpreter:** Use a command-line interface to engage with the application.
